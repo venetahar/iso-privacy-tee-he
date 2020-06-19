@@ -4,7 +4,7 @@ import numpy as np
 from private_inference import PrivateInference
 
 MODEL_INPUT_NAME = 'input'
-MODEL_OUTPUT_NAME = 'output'
+MODEL_OUTPUT_NAME = 'output/BiasAdd'
 
 
 def calculate_num_correct_predictions(prediction_scores, one_hot_labels):

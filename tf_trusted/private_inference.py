@@ -27,7 +27,7 @@ class PrivateInference:
         model_name = self.parameters["model_name"]
         num_samples = test_data.shape[0]
         print("Num samples", num_samples)
-        with tf.Session():
+        with tf.compat.v1.Session():
             input_shape = ModelUtils.get_input_shape(input_name, num_samples, model_file)
             output_shape, output_type = ModelUtils.get_output_shape_and_type(output_name, num_samples, model_file)
 
@@ -37,7 +37,7 @@ class PrivateInference:
             self.benchmark_inference(input_shape, model_load, model_name, model_predict, output_shape, output_type,
                                      test_data, tflite_bytes)
         else:
-            with tf.Session() as sess:
+            with tf.compat.v1.Session() as sess:
                 load_node = model_load(model_name, tflite_bytes)
                 load_node.run()
                 prediction_scores = PrivateInference.evaluate_model(input_shape, model_name, model_predict,
@@ -48,7 +48,7 @@ class PrivateInference:
     def benchmark_inference(input_shape, model_load, model_name, model_predict, output_shape, output_type,
                             test_data, tflite_bytes):
         tf.reset_default_graph()
-        with tf.Session() as sess:
+        with tf.compat.v1.Session()  as sess:
             load_node = model_load(model_name, tflite_bytes)
             load_node.run()
             run_times = []

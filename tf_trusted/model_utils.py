@@ -1,4 +1,4 @@
-from tensorflow import gfile
+import tensorflow.compat.v1.gfile as gfile
 from tensorflow.python.client import timeline
 import tensorflow as tf
 
@@ -21,7 +21,7 @@ class ModelUtils:
         graph_def = ModelUtils.load_pb_model(model_file)
         tf.graph_util.import_graph_def(graph_def)
         print('import/' + output_name + ":0")
-        output = tf.get_default_session().graph.get_tensor_by_name('import/' + output_name + ":0")
+        output = tf.compat.v1.get_default_session().graph.get_tensor_by_name('import/' + output_name + ":0")
         shape = list(output.get_shape())
         shape[0] = batch_size
 
@@ -35,7 +35,7 @@ class ModelUtils:
         :return: Graph def created from the model.
         """
         with gfile.GFile(model_file, 'rb') as f:
-            graph_def = tf.GraphDef()
+            graph_def = tf.compat.v1.GraphDef()
             graph_def.ParseFromString(f.read())
         return graph_def
 
@@ -50,7 +50,7 @@ class ModelUtils:
         """
         graph_def = ModelUtils.load_pb_model(model_file)
         tf.graph_util.import_graph_def(graph_def)
-        input_node = tf.get_default_session().graph.get_tensor_by_name('import/' + input_name + ":0")
+        input_node = tf.compat.v1.get_default_session().graph.get_tensor_by_name('import/' + input_name + ":0")
 
         shape = list(input_node.get_shape())
         shape[0] = batch_size
@@ -66,7 +66,7 @@ class ModelUtils:
         :param input_shape: The input shape.
         :return:
         """
-        converter = tf.lite.TFLiteConverter.from_frozen_graph(graph_def_file, input_arrays,
+        converter = tf.compat.v1.lite.TFLiteConverter.from_frozen_graph(graph_def_file, input_arrays,
                                                               output_arrays,
                                                               input_shapes={input_arrays[0]: input_shape})
         tflite_model = converter.convert()
