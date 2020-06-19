@@ -47,8 +47,8 @@ class PrivateInference:
     @staticmethod
     def benchmark_inference(input_shape, model_load, model_name, model_predict, output_shape, output_type,
                             test_data, tflite_bytes):
-        tf.reset_default_graph()
-        with tf.compat.v1.Session()  as sess:
+        tf.compat.v1.reset_default_graph()
+        with tf.compat.v1.Session() as sess:
             load_node = model_load(model_name, tflite_bytes)
             load_node.run()
             run_times = []
@@ -64,8 +64,6 @@ class PrivateInference:
 
     @staticmethod
     def evaluate_model(input_shape, model_name, model_predict, output_shape, output_type, sess, test_data):
-        placeholder = tf.placeholder(shape=input_shape, dtype=tf.float32)
+        placeholder = tf.compat.v1.placeholder(shape=input_shape, dtype=tf.float32)
         out = model_predict(model_name, placeholder, output_shape, dtype=output_type)
         return sess.run(out, feed_dict={placeholder: test_data})
-
-
