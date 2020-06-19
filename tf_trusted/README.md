@@ -13,7 +13,8 @@ it to build correctly  (I am using 0.24.1 and it seems to work).
 To perform private inference do the following steps:
 
 MALARIA Dataset:
-1. Copy the contents of the ```iso-privacy-tee``` directory to the ```tf_trusted/tf_trusted_custom_op/```
+1. Copy the contents of the ```iso-privacy-tee-he``` directory to the 
+```tf_trusted/tf_trusted_custom_op/```
 ```cp -R privacy/* $TF_TRUSTED_INSALL_PATH$/tf_trusted_custom_op/```
 2. ```cd $TF_TRUSTED_INSALL_PATH$/tf_trusted_custom_op/```
 3. Run: ```python3 experiments.py --experiment_name=$EXPERIMENT_NAME$```. Valid experiment names are: 

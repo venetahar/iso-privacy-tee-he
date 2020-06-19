@@ -32,4 +32,4 @@ def train_model(model_type):
                             target_data_path_prefix=MALARIA_TARGET_DATA_PATH_PREFIX)
 
 
-train_model('mnist_conv')
+train_model('malaria_conv')

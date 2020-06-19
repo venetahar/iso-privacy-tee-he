@@ -3,6 +3,9 @@ import argparse
 import numpy as np
 from private_inference import PrivateInference
 
+MODEL_INPUT_NAME = 'input'
+MODEL_OUTPUT_NAME = 'output'
+
 
 def calculate_num_correct_predictions(prediction_scores, one_hot_labels):
     """
@@ -39,8 +42,8 @@ def load_mnist_test_data():
     Loads the mnist test data and labels.
     :return: the mnist test data and labels.
     """
-    test_data = np.load("mnist/data/bob_test_data.npy")
-    test_data_labels = np.load("mnist/data/bob_test_labels.npy")
+    test_data = np.load("data/mnist/bob_test_data.npy")
+    test_data_labels = np.load("data/mnist/bob_test_data_labels.npy")
     return test_data, test_data_labels
 
 
@@ -49,8 +52,8 @@ def load_malaria_test_data():
     Loads the malaria test data and labels.
     :return: the malaria test data and labels.
     """
-    test_data = np.load("malaria/data/bob_test_data.npy")
-    test_data_labels = np.load("malaria/data/bob_test_labels.npy")
+    test_data = np.load("data/malaria/bob_test_data.npy")
+    test_data_labels = np.load("data/malaria/bob_test_data_labels.npy")
     return test_data, test_data_labels
 
 
@@ -61,9 +64,9 @@ def run_mnist_fully_connected_experiment(should_benchmark=False):
     """
     test_data, test_data_labels = load_mnist_test_data()
     parameters = {
-        "model_file": "mnist/models/alice_fc3_model.pb",
-        "input_name": "flatten_input",
-        "output_name": "dense_2/Softmax",
+        "model_file": "models/mnist/alice_fc3_model.pb",
+        "input_name": MODEL_INPUT_NAME,
+        "output_name": MODEL_OUTPUT_NAME,
         "model_name": "alice_fc3_model",
         "benchmark": should_benchmark
     }
@@ -77,9 +80,9 @@ def run_mnist_conv_experiment(should_benchmark=False):
     """
     test_data, test_data_labels = load_mnist_test_data()
     parameters = {
-        "model_file": "mnist/models/alice_conv_model.pb",
-        "input_name": "conv2d_input",
-        "output_name": "dense_1/Softmax",
+        "model_file": "models/mnist/alice_conv_model.pb",
+        "input_name": MODEL_INPUT_NAME,
+        "output_name": MODEL_OUTPUT_NAME,
         "model_name": "alice_conv_model",
         "benchmark": should_benchmark
     }
@@ -93,9 +96,9 @@ def run_malaria_conv_experiment(should_benchmark=False):
     """
     test_data, test_data_labels = load_malaria_test_data()
     parameters = {
-        "model_file": "malaria/models/alice_conv_pool_model.pb",
-        "input_name": "conv2d_input",
-        "output_name": "dense_1/Softmax",
+        "model_file": "models/malaria/alice_conv_pool_model.pb",
+        "input_name": MODEL_INPUT_NAME,
+        "output_name": MODEL_OUTPUT_NAME,
         "model_name": "alice_conv_pool_model",
         "benchmark": should_benchmark
     }
