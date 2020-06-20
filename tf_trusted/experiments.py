@@ -124,7 +124,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--experiment_name', type=str, default='',
                         help='The experiment name. Can be either: mnist_fc, mnist_conv or malaria_conv')
-    parser.add_argument('--benchmark', type=bool, default=False,
+    parser.add_argument('--benchmark', action="store_true",
                         help='Whether to benchmark the experiment. Default False.')
     config = parser.parse_args()
 

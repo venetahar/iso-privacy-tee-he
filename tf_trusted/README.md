@@ -23,7 +23,7 @@ bash -x tf_trusted/copy_data.sh <TF_TRUSTED_INSALL_PATH/tf_trusted_custom_op>
 3. Run: ```python3 experiments.py --experiment_name=$EXPERIMENT_NAME$```. Valid experiment names are: 
 mnist_conv, mnist_fc and malaria_conv
 
-If you want to benchmark instead pass the ```--benchmark=True``` flag. 
+If you want to benchmark, pass the ```--benchmark``` flag in addition to the experiment name. 
 
 Important!!! I highly suggest restarting the docker container between experiments. I have had problems with 
 the model not being cleared correctly and an old one being used instead. Sometimes, when doing inference followed by
