@@ -1,5 +1,11 @@
+import time
+
+import numpy as np
+import tensorflow as tf
 from tensorflow.keras.losses import CategoricalCrossentropy
 from tensorflow.keras.optimizers import Adam, SGD
+
+from tf_trusted.constants import MODEL_OUTPUT_NAME, MODEL_INPUT_NAME
 
 
 class ModelTraining:
@@ -59,3 +65,24 @@ class ModelTraining:
         metrics = self.model.evaluate_generator(test_data_generator, steps=num_steps)
         print('Test set: Loss: ({:.4f}%) Accuracy: ({:.4f}%)'.format(metrics[0], metrics[1]))
 
+    @staticmethod
+    def benchmark_model(graph_def, num_runs, data_instance):
+        """
+        Measures the runtime of model predicitons.
+        :param num_runs: The number of runs.
+        :param data_instance: The data instance to use.
+        """
+        tf.compat.v1.reset_default_graph()
+        print("Data instance shape {}".format(data_instance.shape))
+        all_metrics = []
+        for index in range(0, num_runs):
+            with tf.compat.v1.Session() as sess:
+                tf.graph_util.import_graph_def(graph_def)
+                output_tensor = sess.graph.get_tensor_by_name('import/' + MODEL_OUTPUT_NAME + ':0')
+                start_time = time.time()
+                sess.run(output_tensor, {'import/' + MODEL_INPUT_NAME + ':0': data_instance})
+                end_time = time.time()
+                all_metrics.append(end_time - start_time)
+
+        print("============Performance metrics: ============ ")
+        print("Average plaintext evaluate model time: {}".format(np.mean(all_metrics)))

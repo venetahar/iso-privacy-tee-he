@@ -1,3 +1,5 @@
+import numpy as np
+
 from common.model_factory import ModelFactory, CONV_POOL_MODEL_TYPE
 from common.model_training import ModelTraining
 from common.data_utils import DataUtils
@@ -25,3 +27,14 @@ def train_malaria_model(model_path, model_name, source_data_path, target_data_pa
     DataUtils.sava_data_generator(malaria_data_generator.test_data_generator, target_data_path_prefix)
     DataUtils.save_graph(model, model_path=model_path, model_name=model_name + '.pb')
 
+
+def benchmark_malaria_model(model_path, test_data_path, num_runs=20):
+    """
+    Benchmarks the malaria model.
+    :param model_path: The model path.
+    :param test_data_path: The test data path.
+    :param num_runs: The number of runs.
+    """
+    test_data = np.load(test_data_path)
+    graph_def = DataUtils.load_model(model_path)
+    ModelTraining.benchmark_model(graph_def, num_runs, test_data[0:1])

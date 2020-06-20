@@ -1,5 +1,6 @@
 from tensorflow.keras.datasets import mnist
 from tensorflow.keras.utils import to_categorical
+import tensorflow as tf
 
 from common.model_factory import ModelFactory
 from common.model_training import ModelTraining
@@ -49,4 +50,17 @@ def normalize(data):
     :param data: The data.
     :return: Normalized data.
     """
-    return (data/255.0 - MNIST_NORM_MEAN) / MNIST_NORM_STD
+    return (data / 255.0 - MNIST_NORM_MEAN) / MNIST_NORM_STD
+
+
+def benchmark_mnist_model(model_path, num_runs=20):
+    """
+    Benchmarks the malaria model.
+    :param model_path: The model path.
+    :param num_runs: The number of runs.
+    """
+    (_, _), (test_data, test_labels) = mnist.load_data()
+    test_data, test_labels = preprocess(test_data, test_labels)
+
+    graph_def = DataUtils.load_model(model_path)
+    ModelTraining.benchmark_model(graph_def, num_runs, test_data[0:1])

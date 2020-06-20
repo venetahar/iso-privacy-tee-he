@@ -23,4 +23,4 @@ NUM_CLASSES = 2
 MALARIA_MODEL_PATH = 'models/malaria/'
 MALARIA_DATA_PATH = 'data/malaria/cell_images/'
 MALARIA_MODEL_NAME = 'alice_conv_pool_model'
-MALARIA_TARGET_DATA_PATH_PREFIX = 'malaria/bob_test_'
+MALARIA_TARGET_DATA_PATH_PREFIX = 'data/malaria/bob_test_'

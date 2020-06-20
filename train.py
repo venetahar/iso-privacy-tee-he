@@ -2,7 +2,7 @@ from numpy.random import seed
 
 from common.experiments.malaria.constants import MALARIA_TARGET_DATA_PATH_PREFIX, MALARIA_DATA_PATH, \
     MALARIA_MODEL_PATH, MALARIA_MODEL_NAME
-from common.experiments.malaria.malaria_training import train_malaria_model
+from common.experiments.malaria.malaria_training import train_malaria_model, benchmark_malaria_model
 from common.experiments.mnist.constants import MNIST_MODEL_PATH, MNIST_FULLY_CONNECTED_MODEL_NAME, \
     MNIST_CONV_MODEL_NAME, MNIST_TARGET_DATA_PREFIX
 
@@ -12,7 +12,7 @@ from tensorflow.compat.v1 import set_random_seed
 set_random_seed(2)
 
 from common.model_factory import CONV_MODEL_TYPE, FULLY_CONNECTED_MODEL_TYPE
-from common.experiments.mnist.mnist_training import train_mnist_model
+from common.experiments.mnist.mnist_training import train_mnist_model, benchmark_mnist_model
 
 
 def train_model(model_type):
@@ -32,4 +32,7 @@ def train_model(model_type):
                             target_data_path_prefix=MALARIA_TARGET_DATA_PATH_PREFIX)
 
 
-train_model('malaria_conv')
+# train_model('mnist_fc')
+benchmark_mnist_model(MNIST_MODEL_PATH + MNIST_FULLY_CONNECTED_MODEL_NAME + '.pb')
+benchmark_mnist_model(MNIST_MODEL_PATH + MNIST_CONV_MODEL_NAME + '.pb')
+benchmark_malaria_model(MALARIA_MODEL_PATH + MALARIA_MODEL_NAME + '.pb', MALARIA_TARGET_DATA_PATH_PREFIX + 'data.npy')
