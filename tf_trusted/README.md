@@ -14,11 +14,10 @@ To perform private inference do the following steps:
 
 MALARIA Dataset:
 1. Copy the contents of the ```iso-privacy-tee-he/tf_trusted/*```, ```iso-privacy-tee-he/models```, ```iso-privacy-tee-he/data``` 
-directories to the 
-```tf_trusted/tf_trusted_custom_op/```
-```cp -R iso-privacy-tee-he/tf_trusted/* $TF_TRUSTED_INSALL_PATH$/tf_trusted_custom_op/```
-```cp -R iso-privacy-tee-he/models $TF_TRUSTED_INSALL_PATH$/tf_trusted_custom_op/```
-```cp -R iso-privacy-tee-he/data $TF_TRUSTED_INSALL_PATH$/tf_trusted_custom_op/```
+directories to ```tf_trusted/tf_trusted_custom_op/```:
+```
+bash -x tf_trusted/copy_data.sh <TF_TRUSTED_INSALL_PATH/tf_trusted_custom_op>
+```
 
 2. ```cd $TF_TRUSTED_INSALL_PATH$/tf_trusted_custom_op/```
 3. Run: ```python3 experiments.py --experiment_name=$EXPERIMENT_NAME$```. Valid experiment names are: 
