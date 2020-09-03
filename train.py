@@ -32,7 +32,7 @@ def train_model(model_type):
                             target_data_path_prefix=MALARIA_TARGET_DATA_PATH_PREFIX)
 
 
-# train_model('mnist_fc')
-benchmark_mnist_model(MNIST_MODEL_PATH + MNIST_FULLY_CONNECTED_MODEL_NAME + '.pb')
-benchmark_mnist_model(MNIST_MODEL_PATH + MNIST_CONV_MODEL_NAME + '.pb')
-benchmark_malaria_model(MALARIA_MODEL_PATH + MALARIA_MODEL_NAME + '.pb', MALARIA_TARGET_DATA_PATH_PREFIX + 'data.npy')
+train_model('mnist_conv')
+# benchmark_mnist_model(MNIST_MODEL_PATH + MNIST_FULLY_CONNECTED_MODEL_NAME + '.pb')
+# benchmark_mnist_model(MNIST_MODEL_PATH + MNIST_CONV_MODEL_NAME + '.pb')
+# benchmark_malaria_model(MALARIA_MODEL_PATH + MALARIA_MODEL_NAME + '.pb', MALARIA_TARGET_DATA_PATH_PREFIX + 'data.npy')

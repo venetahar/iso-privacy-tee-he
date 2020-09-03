@@ -75,14 +75,21 @@ class ModelTraining:
         tf.compat.v1.reset_default_graph()
         print("Data instance shape {}".format(data_instance.shape))
         all_metrics = []
-        for index in range(0, num_runs):
-            with tf.compat.v1.Session() as sess:
-                tf.graph_util.import_graph_def(graph_def)
-                output_tensor = sess.graph.get_tensor_by_name('import/' + MODEL_OUTPUT_NAME + ':0')
+
+        # The session should not be recreated every time as that incurs a lot of latency.
+        with tf.compat.v1.Session() as sess:
+            tf.graph_util.import_graph_def(graph_def)
+            output_tensor = sess.graph.get_tensor_by_name('import/' + MODEL_OUTPUT_NAME + ':0')
+
+            # Prime the session as the first call is a lot more expensive.
+            sess.run(output_tensor, {'import/' + MODEL_INPUT_NAME + ':0': data_instance})
+
+            for index in range(0, num_runs):
                 start_time = time.time()
                 sess.run(output_tensor, {'import/' + MODEL_INPUT_NAME + ':0': data_instance})
                 end_time = time.time()
                 all_metrics.append(end_time - start_time)
 
+        print(all_metrics)
         print("============Performance metrics: ============ ")
         print("Average plaintext evaluate model time: {}".format(np.mean(all_metrics)))
