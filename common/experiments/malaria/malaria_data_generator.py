@@ -1,3 +1,5 @@
+import os
+
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 from common.experiments.malaria.constants import MALARIA_NORM_MEAN, MALARIA_NORM_STD
@@ -17,26 +19,23 @@ class MalariaDataGenerator:
 
         self.parameters = parameters
 
-        self.data_generator = ImageDataGenerator(
-            validation_split=self.parameters['test_split'],
+        image_data_generator = ImageDataGenerator(
             dtype='float32',
             preprocessing_function=self.normalize
         )
 
-        self.train_data_generator = self.data_generator.flow_from_directory(
-            data_path,
+        self.train_data_generator = image_data_generator.flow_from_directory(
+            os.path.join(data_path, self.parameters['training_folder']),
             target_size=self.parameters['target_size'],
             batch_size=self.parameters['batch_size'],
-            class_mode='categorical',
-            subset='training'
+            class_mode='categorical'
         )
 
-        self.test_data_generator = self.data_generator.flow_from_directory(
-            data_path,
+        self.test_data_generator = image_data_generator.flow_from_directory(
+            os.path.join(data_path, self.parameters['testing_folder']),
             target_size=self.parameters['target_size'],
             batch_size=self.parameters['test_batch_size'],
-            class_mode='categorical',
-            subset='validation'
+            class_mode='categorical'
         )
 
     def normalize(self, data):
@@ -45,4 +44,4 @@ class MalariaDataGenerator:
         :param data: The data.
         :return: Normalized data.
         """
-        return (data/255.0 - MALARIA_NORM_MEAN) / MALARIA_NORM_STD
+        return ((data/255.0) - MALARIA_NORM_MEAN) / MALARIA_NORM_STD

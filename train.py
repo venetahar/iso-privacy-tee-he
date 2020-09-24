@@ -6,10 +6,10 @@ from common.experiments.malaria.malaria_training import train_malaria_model, ben
 from common.experiments.mnist.constants import MNIST_MODEL_PATH, MNIST_FULLY_CONNECTED_MODEL_NAME, \
     MNIST_CONV_MODEL_NAME, MNIST_TARGET_DATA_PREFIX
 
-seed(1)
+seed(0)
 from tensorflow.compat.v1 import set_random_seed
 
-set_random_seed(2)
+set_random_seed(0)
 
 from common.model_factory import CONV_MODEL_TYPE, FULLY_CONNECTED_MODEL_TYPE
 from common.experiments.mnist.mnist_training import train_mnist_model, benchmark_mnist_model

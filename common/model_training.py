@@ -24,7 +24,7 @@ class ModelTraining:
         if self.parameters['optimizer'] == 'Adam':
             optimizer = Adam(self.parameters['learning_rate'])
         else:
-            optimizer = SGD(self.parameters['learning_rate'], self.parameters['momentum'], nesterov=True)
+            optimizer = SGD(self.parameters['learning_rate'], self.parameters['momentum'])
         self.model.compile(loss=CategoricalCrossentropy(from_logits=True), optimizer=optimizer, metrics=['accuracy'])
 
     def train(self, data, labels):

@@ -16,8 +16,8 @@ def fully_connected_model(input_shape, dense_units, num_classes):
     x = tf.reshape(input_x, [-1, flatten_shape])
 
     for dense_unit in dense_units:
-        x = Dense(dense_unit, activation='relu')(x)
+        x = Dense(dense_unit, activation='relu', bias_initializer='glorot_uniform')(x)
 
-    output = Dense(num_classes, name="output")(x)
+    output = Dense(num_classes, name="output", bias_initializer='glorot_uniform')(x)
 
     return Model(inputs=input_x, outputs=output)

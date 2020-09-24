@@ -17,7 +17,9 @@ def train_malaria_model(model_path, model_name, source_data_path, target_data_pa
                                                       'test_batch_size': TEST_BATCH_SIZE,
                                                       'batch_size': TRAIN_BATCH_SIZE,
                                                       'test_split': TEST_PERCENTAGE,
-                                                      'target_size': IMG_RESIZE
+                                                      'target_size': IMG_RESIZE,
+                                                      'training_folder': 'training',
+                                                      'testing_folder': 'testing'
                                                   })
 
     model = ModelFactory.create_model(CONV_POOL_MODEL_TYPE, MALARIA_INPUT_SHAPE, NUM_CLASSES)

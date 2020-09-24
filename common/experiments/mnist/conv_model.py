@@ -17,13 +17,14 @@ def conv_model(input_shape, kernel_size, stride, out_channels, avg_pool_size, de
     :return: A convolutional model.
     """
     input_x = Input(input_shape, name="input")
-    x = Conv2D(out_channels, kernel_size=kernel_size, activation='relu', strides=stride, padding='valid')(input_x)
+    x = Conv2D(out_channels, kernel_size=kernel_size, activation='relu', strides=stride,
+               padding='valid', bias_initializer='glorot_uniform')(input_x)
     x = AveragePooling2D(pool_size=avg_pool_size)(x)
     x_shape = x.get_shape()[1:]
     x = tf.reshape(x, [-1, np.prod(x_shape)])
 
     for dense_unit in dense_units:
-        x = Dense(dense_unit, activation='relu')(x)
-    output = Dense(num_classes, name="output")(x)
+        x = Dense(dense_unit, activation='relu', bias_initializer='glorot_uniform')(x)
+    output = Dense(num_classes, name="output", bias_initializer='glorot_uniform')(x)
 
     return Model(inputs=input_x, outputs=output)
