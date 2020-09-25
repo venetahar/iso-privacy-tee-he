@@ -3,7 +3,7 @@ import argparse
 import numpy as np
 from private_inference import PrivateInference
 
-from tf_trusted.constants import MODEL_INPUT_NAME, MODEL_OUTPUT_NAME
+from constants import MODEL_INPUT_NAME, MODEL_OUTPUT_NAME
 
 
 def calculate_num_correct_predictions(prediction_scores, one_hot_labels):
@@ -106,7 +106,7 @@ def run_malaria_conv_experiment(should_benchmark=False):
     if should_benchmark:
         private_inference.perform_inference(test_data[0: 1])
     else:
-        batch_size = 18
+        batch_size = 13
         index = 0
         num_samples = test_data.shape[0]
         correct_predictions = 0
