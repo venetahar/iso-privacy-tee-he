@@ -28,14 +28,16 @@ class MalariaDataGenerator:
             os.path.join(data_path, self.parameters['training_folder']),
             target_size=self.parameters['target_size'],
             batch_size=self.parameters['batch_size'],
-            class_mode='categorical'
+            class_mode='categorical',
+            seed=0
         )
 
         self.test_data_generator = image_data_generator.flow_from_directory(
             os.path.join(data_path, self.parameters['testing_folder']),
             target_size=self.parameters['target_size'],
             batch_size=self.parameters['test_batch_size'],
-            class_mode='categorical'
+            class_mode='categorical',
+            seed=0
         )
 
     def normalize(self, data):

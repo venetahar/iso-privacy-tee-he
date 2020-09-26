@@ -18,7 +18,7 @@ TRAINING_PARAMS = {
 }
 
 MALARIA_INPUT_SHAPE = (32, 32, 3)
-NUM_CLASSES = 2
+MALARIA_NUM_CLASSES = 2
 
 MALARIA_MODEL_PATH = 'models/malaria/'
 MALARIA_DATA_PATH = 'data/malaria/cell_images/'
