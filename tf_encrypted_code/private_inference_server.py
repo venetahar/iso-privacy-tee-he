@@ -59,8 +59,6 @@ if __name__ == "__main__":
                                                        'Due to the way tf_encrypted works with fixing the batch size'
                                                        'it`s best to provide a batch size which exactly divides the num'
                                                        'test samples.')
-    parser.add_argument('--benchmark', action="store_true",
-                        help='Whether to benchmark the experiment. Default False.')
     config = parser.parse_args()
 
     if config.experiment_name == 'mnist_fc':
